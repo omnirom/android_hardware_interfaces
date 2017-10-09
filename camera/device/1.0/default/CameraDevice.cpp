@@ -363,7 +363,8 @@ CameraDevice::CameraHeapMemory::~CameraHeapMemory() {
 }
 
 // shared memory methods
-camera_memory_t* CameraDevice::sGetMemory(int fd, size_t buf_size, uint_t num_bufs, void *user) {
+camera_memory_t* CameraDevice::sGetMemory(int fd, size_t buf_size, uint_t num_bufs,
+        void *user __unused) {
     ALOGV("%s", __FUNCTION__);
 #ifndef TARGET_USES_NON_TREBLE_CAMERA
     CameraDevice* object = static_cast<CameraDevice*>(user);
@@ -412,7 +413,7 @@ void CameraDevice::sPutMemory(camera_memory_t *data) {
 }
 
 // Callback forwarding methods
-void CameraDevice::sNotifyCb(int32_t msg_type, int32_t ext1, int32_t ext2, void *user) {
+void CameraDevice::sNotifyCb(int32_t msg_type, int32_t ext1, int32_t ext2, void *user __unused) {
     ALOGV("%s", __FUNCTION__);
 #ifndef TARGET_USES_NON_TREBLE_CAMERA
     CameraDevice* object = static_cast<CameraDevice*>(user);
@@ -540,7 +541,7 @@ void CameraDevice::handleCallbackTimestamp(
 }
 
 void CameraDevice::sDataCbTimestamp(nsecs_t timestamp, int32_t msg_type,
-        const camera_memory_t *data, unsigned index, void *user) {
+        const camera_memory_t *data, unsigned index, void *user __unused) {
     ALOGV("%s", __FUNCTION__);
 #ifndef TARGET_USES_NON_TREBLE_CAMERA
     CameraDevice* object = static_cast<CameraDevice*>(user);
