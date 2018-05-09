@@ -15,7 +15,7 @@
  */
 
 #define LOG_TAG "keymaster_hidl_hal_test"
-#include <cutils/log.h>
+#include <log/log.h>
 
 #include <iostream>
 
