@@ -19,7 +19,7 @@
 
 #include "KeymasterDevice.h"
 
-#include <cutils/log.h>
+#include <log/log.h>
 
 #include <hardware/keymaster_defs.h>
 #include <keymaster/keymaster_configuration.h>
