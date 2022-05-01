@@ -31,6 +31,7 @@
 #include <android-base/logging.h>
 #include <batteryservice/BatteryService.h>
 #include <cutils/klog.h>
+#include <cutils/properties.h>
 #include <cutils/uevent.h>
 #include <healthd/healthd.h>
 #include <utils/Errors.h>
@@ -97,6 +98,17 @@ void HealthLoop::WakeAlarmSetInterval(int interval) {
 }
 
 void HealthLoop::AdjustWakealarmPeriods(bool charger_online) {
+    char property[PROPERTY_VALUE_MAX] = {0};
+    bool stopWake = false;
+
+    if (property_get("sys.health.healthloop.disable", property, NULL)) {
+        stopWake = strcmp(property, "1") == 0;
+    }
+    if (stopWake) {
+        LOG(WARNING) << "HealthLoop::AdjustWakealarmPeriods stop healthloop because of property";
+        healthd_config_.periodic_chores_interval_fast = -1;
+        healthd_config_.periodic_chores_interval_slow = -1;
+    }
     // Fast wake interval when on charger (watch for overheat);
     // slow wake interval when on battery (watch for drained battery).
 
